@@ -64,12 +64,12 @@ Coming soon!
 
 ### Body
 
-| Name       |  Type   | Required |  Description   |
-| :--------- | :-----: | :------: | :------------: |
-| `username` | String  |   Yes    | Must be unique |
-| `password` | String  |   Yes    |                |
-| `email`    | String  |   Yes    |                |
-| `investor` | Boolean |   Yes    |  Must choose   |
+| Name       |  Type   | Required |     Description     |
+| :--------- | :-----: | :------: | :-----------------: |
+| `username` | String  |   Yes    |   Must be unique    |
+| `password` | String  |   Yes    |                     |
+| `email`    | String  |   Yes    |                     |
+| `investor` | Boolean |   Yes    | Defaults to 'false' |
 
 #### _example:_
 
@@ -149,9 +149,6 @@ If you successfully login, the endpoint will return an HTTP response with a stat
 
 ```
 {
-    "username": "user1",
-    "id": 1,
-    "email": "email@email.com",
     "message": "Welcome user1!",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkVLbmFwbWFuMTAwIiwiaWQiOjMsImlhdCI6MTU2OTM1ODg2MiwiZXhwIjoxNTY5NDQ1MjYyfQ.sNDjccLyuHWhgkne5Ky0hR1-Pd7QNGr6TyKlJqTDHSk"
 }
@@ -169,11 +166,48 @@ If you fail to login, the endpoint will return an HTTP response with a status co
 
 500 (Bad Request)
 
-If there is a server or database error, the endpoint will return an HTTP response with a status code 500 and a body as below. However, this error can also come from a user mistake as well.
+If there is a server or database error, the endpoint will return an HTTP response with a status code 500 and a body as below. However, this error can also come from a user mistake.
 
 ```
 {
     "error": "Server could not log user in"
+}
+```
+
+# Logout
+
+## Logs a user out
+
+#### _Method Url:_ `/auth/logout`
+
+#### HTTP method [GET]
+
+### Headers
+
+| Name            |  Type  | Required |       Description        |
+| :-------------- | :----: | :------: | :----------------------: |
+| `Content-Type`  | String |   Yes    | Must be application/json |
+| `authorization` | String |   Yes    |      JSON Web Token      |
+
+#### Response
+
+200 (OK)
+
+If you successfully login, the endpoint will return an HTTP response with a status code 200 and body as below.
+
+```
+{
+    "message": "Successfully logged out"
+}
+```
+
+500 (Bad Request)
+
+If there is a server or database error, the endpoint will return an HTTP response with a status code 500 and a body as below.
+
+```
+{
+    "error": "Server could not log user out"
 }
 ```
 
@@ -187,7 +221,7 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ##### HTTP method: [GET]
 
-## **Get list of all Startups**
+### **Get list of all Startups**
 
 #### Headers
 
@@ -213,6 +247,7 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
       "contract": "Crowd SAFE",
       "goalLow": "25000",
       "goalHigh": "1500000",
+      "city": "Manhattan",
       "state": "New York",
       "country": "United States",
       "deadline": "10/30/2020",
@@ -229,10 +264,11 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
       "contract": "Crowd SAFE",
       "goalLow": "100000",
       "goalHigh": "1250000",
-      "state": "San Francisco",
+      "city": "San Francisco",
+      "state": "California",
       "country": "United States",
       "deadline": "08/16/2020",
-      "email": "bmail@email.com",
+      "email": "email@email.com",
       "dateOfPost": "01/25/2020",
       "active": true
   },
@@ -245,10 +281,11 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
       "contract": "Crowd SAFE",
       "goalLow": "50000",
       "goalHigh": "1000000",
-      "state": "Seattle",
+      "city": "Seattle",
+      "state": "Washington",
       "country": "United States",
       "deadline": "12/31/2020",
-      "email": "cmail@email.com",
+      "email": "bmail@email.com",
       "dateOfPost": "02/28/2020",
       "active": false
   }
@@ -271,7 +308,7 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ##### HTTP method: [GET]
 
-## **Get a specific startup by it's ID**
+### **Get a specific startup by it's ID**
 
 #### Headers
 
@@ -297,14 +334,25 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
       "contract": "Crowd SAFE",
       "goalLow": "50000",
       "goalHigh": "1000000",
-      "state": "Seattle",
+      "city": "Seattle",
+      "state": "Washington",
       "country": "United States",
       "deadline": "12/31/2020",
-      "email": "cmail@email.com",
+      "email": "bmail@email.com",
       "dateOfPost": "02/28/2020",
       "active": false
   }
 ]
+```
+
+404(CLIENT ERROR)
+
+The endpoint will return a HTTP response with a status code 400 and a body as below.
+
+```
+{
+    "error": "Startup with that ID does not exist"
+}
 ```
 
 500(SERVER ERROR)
@@ -323,7 +371,7 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ##### HTTP method: [GET]
 
-## **Get All Startups By User ID**
+### **Get All Startups By User ID**
 
 #### Headers
 
@@ -349,6 +397,7 @@ The endpoint will return a HTTP response with a status code and a body as below
       "contract": "Crowd SAFE",
       "goalLow": "25000",
       "goalHigh": "1500000",
+      "city": "Manhattan",
       "state": "New York",
       "country": "United States",
       "deadline": "10/30/2020",
@@ -365,23 +414,24 @@ The endpoint will return a HTTP response with a status code and a body as below
       "contract": "Crowd SAFE",
       "goalLow": "100000",
       "goalHigh": "1250000",
-      "state": "San Francisco",
+      "city": "San Francisco",
+      "state": "California",
       "country": "United States",
       "deadline": "08/16/2020",
-      "email": "bmail@email.com",
+      "email": "email@email.com",
       "dateOfPost": "01/25/2020",
       "active": true
   }
 ]
 ```
 
-400(CLIENT ERROR)
+404(CLIENT ERROR)
 
 The endpoint will return a HTTP response with a status code 400 and a body as below.
 
 ```
 {
-    "error": "Cannot find user with that ID"
+    "error": "User with that ID does not exist"
 }
 ```
 
@@ -401,7 +451,7 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ##### HTTP method: [POST]
 
-## **Add new startup with POST request**
+### **All fields required for POST except 'discount'**
 
 #### Headers
 
@@ -412,7 +462,7 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 #### Response
 
-200 (OK)
+201 (Created)
 
 The endpoint will return a HTTP response with status code 200 and the ID of the newly added Startup.
 
@@ -438,7 +488,7 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ##### HTTP method: [PUT]
 
-## **Need Startup ID to update Startup**
+### **Need Startup ID to update Startup**
 
 #### Headers
 
@@ -451,10 +501,12 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 200 (OK)
 
-The endpoint will return a HTTP response with a status code of 200 and a body showing the amount of startups updated.
+The endpoint will return a HTTP response with a status code of 200 and a body as below.
 
 ```
-  updated: 1
+{
+    message: "Startup succesfully updated"
+}
 ```
 
 500(SERVER ERROR)
@@ -473,7 +525,7 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ##### HTTP method: [DELETE]
 
-## **Need Startup ID to delete Startup**
+### **Need Startup ID to delete Startup**
 
 #### Headers
 
@@ -490,7 +542,17 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
 
 ```
 {
-    removed: "Startup succesfully deleted"
+    message: "Startup succesfully deleted"
+}
+```
+
+404(CLIENT ERROR)
+
+The endpoint will return a HTTP response with a status code 400 and a body as below.
+
+```
+{
+    "error": "Startup with that ID does not exist"
 }
 ```
 
