@@ -3,18 +3,15 @@ exports.up = function(knex) {
     .createTable('users', users => {
       users.increments();
       users
-        .string('username', 255)
-        .notNullable()
-        .unique();
-      users.string('password', 255).notNullable();
-      users
         .string('email', 255)
         .notNullable()
         .unique();
+      users.string('password', 255).notNullable();
+      users.string('fullName', 255).notNullable();
       users
         .boolean('investor')
         .notNullable()
-        .defaultTo(false);
+        .defaultTo(true);
     })
     .createTable('startups', table => {
       table.increments();
@@ -25,11 +22,15 @@ exports.up = function(knex) {
         .references('users.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
+      table.string('projectName', 128).notNullable();
       table
         .integer('valuationCap')
         .unsigned()
         .notNullable();
-      table.integer('discount').unsigned();
+      table
+        .integer('discount')
+        .unsigned()
+        .notNullable();
       table
         .integer('minInvestment')
         .unsigned()
@@ -49,9 +50,10 @@ exports.up = function(knex) {
       table.string('city', 128).notNullable();
       table.string('state', 128).notNullable();
       table.string('country', 128).notNullable();
-      table.string('deadline', 10).notNullable();
       table.string('email', 128).notNullable();
-      table.string('dateOfPost', 10).notNullable();
+      table.string('postDate', 10).notNullable();
+      table.string('startDate', 10).notNullable();
+      table.string('endDate', 10).notNullable();
       table
         .boolean('active')
         .notNullable()

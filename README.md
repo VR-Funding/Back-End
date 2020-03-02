@@ -64,12 +64,12 @@ Coming soon!
 
 ### Body
 
-| Name       |  Type   | Required |     Description     |
-| :--------- | :-----: | :------: | :-----------------: |
-| `username` | String  |   Yes    |   Must be unique    |
-| `password` | String  |   Yes    |                     |
-| `email`    | String  |   Yes    |                     |
-| `investor` | Boolean |   Yes    | Defaults to 'false' |
+| Name       |  Type   | Required |    Description     |
+| :--------- | :-----: | :------: | :----------------: |
+| `username` | String  |   Yes    |   Must be unique   |
+| `password` | String  |   Yes    |                    |
+| `email`    | String  |   Yes    |                    |
+| `investor` | Boolean |   Yes    | Defaults to 'true' |
 
 #### _example:_
 
@@ -82,7 +82,7 @@ Coming soon!
 }
 ```
 
-#### Response
+### Response
 
 201 (Created)
 
@@ -141,7 +141,7 @@ If any of the above data is missing, the registration will not go through. It wi
 }
 ```
 
-#### Response
+### Response
 
 200 (OK)
 
@@ -189,7 +189,7 @@ If there is a server or database error, the endpoint will return an HTTP respons
 | `Content-Type`  | String |   Yes    | Must be application/json |
 | `authorization` | String |   Yes    |      JSON Web Token      |
 
-#### Response
+### Response
 
 200 (OK)
 
@@ -223,14 +223,14 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ### **Get list of all Startups**
 
-#### Headers
+### Headers
 
 | Name            |  Type  | Required |       Description        |
 | :-------------- | :----: | :------: | :----------------------: |
 | `Content-Type`  | String |   Yes    | Must be application/json |
 | `authorization` | String |   Yes    |      JSON Web Token      |
 
-#### Response
+### Response
 
 200 (OK)
 
@@ -251,9 +251,10 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
       "city": "Manhattan",
       "state": "New York",
       "country": "United States",
-      "deadline": "10/30/2020",
       "email": "email@email.com",
-      "dateOfPost": "02/10/2020",
+      "postDate": "01/25/2020",
+      "startDate": "02/11/2020",
+      "endDate": "08/16/2020",
       "active": true
   },
   {
@@ -269,10 +270,11 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
       "city": "San Francisco",
       "state": "California",
       "country": "United States",
-      "deadline": "08/16/2020",
       "email": "email@email.com",
-      "dateOfPost": "01/25/2020",
-      "active": true
+      "postDate": "02/10/2020",
+      "startDate": "03/04/2020",
+      "endDate": "10/30/2020",
+      "active": false
   },
   {
       "id": 3,
@@ -287,9 +289,10 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
       "city": "Seattle",
       "state": "Washington",
       "country": "United States",
-      "deadline": "12/31/2020",
       "email": "bmail@email.com",
-      "dateOfPost": "02/28/2020",
+      "postDate": "02/28/2020",
+      "startDate": "04/30/2020",
+      "endDate": "07/30/2020",
       "active": false
   }
 ]
@@ -313,14 +316,14 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ### **Get a specific startup by it's ID**
 
-#### Headers
+### Headers
 
 | Name            |  Type  | Required |       Description        |
 | :-------------- | :----: | :------: | :----------------------: |
 | `Content-Type`  | String |   Yes    | Must be application/json |
 | `authorization` | String |   Yes    |      JSON Web Token      |
 
-#### Response
+### Response
 
 200 (OK)
 
@@ -341,9 +344,10 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
       "city": "Seattle",
       "state": "Washington",
       "country": "United States",
-      "deadline": "12/31/2020",
       "email": "bmail@email.com",
-      "dateOfPost": "02/28/2020",
+      "postDate": "02/28/2020",
+      "startDate": "04/30/2020",
+      "endDate": "07/30/2020",
       "active": false
   }
 ]
@@ -377,14 +381,14 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ### **Get All Startups By User ID**
 
-#### Headers
+### Headers
 
 | Name            |  Type  | Required |       Description        |
 | :-------------- | :----: | :------: | :----------------------: |
 | `Content-Type`  | String |   Yes    | Must be application/json |
 | `authorization` | String |   Yes    |      JSON Web Token      |
 
-#### Response
+### Response
 
 200 (OK)
 
@@ -405,9 +409,10 @@ The endpoint will return a HTTP response with a status code and a body as below
       "city": "Manhattan",
       "state": "New York",
       "country": "United States",
-      "deadline": "10/30/2020",
       "email": "email@email.com",
-      "dateOfPost": "02/10/2020",
+      "postDate": "01/25/2020",
+      "startDate": "02/11/2020",
+      "endDate": "08/16/2020",
       "active": true
   },
   {
@@ -423,10 +428,11 @@ The endpoint will return a HTTP response with a status code and a body as below
       "city": "San Francisco",
       "state": "California",
       "country": "United States",
-      "deadline": "08/16/2020",
       "email": "email@email.com",
-      "dateOfPost": "01/25/2020",
-      "active": true
+      "postDate": "02/10/2020",
+      "startDate": "03/04/2020",
+      "endDate": "10/30/2020",
+      "active": false
   }
 ]
 ```
@@ -457,16 +463,39 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ##### HTTP method: [POST]
 
-### **All fields required for POST except 'discount'**
+### **All fields required for POST except `discount`**
 
-#### Headers
+### Headers
 
-| Name            |  Type  | Required |       Description        |
-| :-------------- | :----: | :------: | :----------------------: |
-| `Content-Type`  | String |   Yes    | Must be application/json |
-| `authorization` | String |   Yes    |      JSON Web Token      |
+| Name            |  Type   | Required |                 Description                  |
+| :-------------- | :-----: | :------: | :------------------------------------------: |
+| `Content-Type`  | String  |   Yes    |           Must be application/json           |
+| `authorization` | String  |   Yes    |                JSON Web Token                |
+| `discount`      | Integer |   Yes    |          Max of two digits. %-based          |
+| `active`        | Boolean |   Yes    | Defaults to false, turns true on `startDate` |
 
-#### Response
+### Body
+
+| Name            |  Type   | Required |                           Description                           |
+| :-------------- | :-----: | :------: | :-------------------------------------------------------------: |
+| `userId`        | Integer |   Yes    |                   ID of User posting startup                    |
+| `projectName`   | String  |   Yes    |                     Name of startup/company                     |
+| `valuationCap`  | Integer |   Yes    |    Max valuation at which investment converts to shares/cash    |
+| `discount`      | Integer |   Yes    |  Percentage-based discount at trigger event. Max of two digits  |
+| `minInvestment` | Integer |   Yes    |                   Minimum investment accepted                   |
+| `contract`      | String  |   Yes    |               Either 'Crowd SAFE' or 'Crowd IPA'                |
+| `goalLow`       | Integer |   Yes    |      Minimum dollar amount for raise to close successfully      |
+| `goalHigh`      | Integer |   Yes    |    Max raise amount. Switch `active` to 'false' when reached    |
+| `city`          | String  |   Yes    |                  City where startup is located                  |
+| `state`         | String  |   Yes    |                 State where startup is located                  |
+| `country`       | String  |   Yes    |                Country where startup is located                 |
+| `email`         | String  |   Yes    |                Contact email address for startup                |
+| `postDate`      | String  |   Yes    |               Date startup is created. DD/MM/YYYY               |
+| `startDate`     | String  |   Yes    | Date startup goes `active: true` and begins raising. DD/MM/YYYY |
+| `endDate`       | String  |   Yes    |  Date startup goes `active: false` and ends raise. DD/MM/YYYY   |
+| `active`        | Boolean |   Yes    |         Defaults to 'false' till `startDate` is reached         |
+
+### Response
 
 201 (Created)
 
