@@ -19,9 +19,9 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  let { username, password } = req.body;
+  let { email, password } = req.body;
 
-  Users.findBy({ username })
+  Users.findBy({ email })
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
@@ -38,17 +38,10 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  if (req.session) {
-    req.session.destroy(err => {
-      if (err) {
-        res.status(500).json({ error: 'Server could not log user out' });
-      } else {
-        res.status(200).json({ message: 'Successfully logged out' });
-      }
-    });
-  } else {
-    res.status(200).json({ message: 'You are already logged out' });
-  }
+  res
+    .status(200)
+    .send({ token: null })
+    .json({ message: 'Successfully logged out' });
 });
 
 module.exports = router;

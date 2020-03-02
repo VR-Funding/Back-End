@@ -33,9 +33,9 @@ router.get('/:id', (req, res) => {
     });
 });
 
-// Get a specific startup by it's userId
-router.get('/:id', (req, res) => {
-  Startups.findById(req.params.userId)
+// Get a specific startup by ID of the user who posted it (userId field)
+router.get('/users/:userId', (req, res) => {
+  Startups.findByUserId(req.params.userId)
     .then(startup => {
       if (startup) {
         res.status(200).json(startup);
