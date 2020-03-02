@@ -241,7 +241,7 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
   {
       "id": 1,
       "userId": 1,
-      "companyName": "Uber JetSki",
+      "projectName": "Uber JetSki",
       "valuationCap": 7000000,
       "discount": 20,
       "minInvestment": 100,
@@ -259,7 +259,7 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
   {
       "id": 2,
       "userId": 1,
-      "companyName": "Uber Airplane",
+      "projectName": "Uber Airplane",
       "valuationCap": 5500000,
       "discount": 10,
       "minInvestment": 250,
@@ -278,7 +278,7 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
       "id": 3,
       "userId": 2,
       "valuationCap": 4000000,
-      "companyName": "Knomo",
+      "projectName": "Knomo",
       "discount": 15,
       "minInvestment": 100,
       "contract": "Crowd SAFE",
@@ -332,7 +332,7 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
       "id": 3,
       "userId": 2,
       "valuationCap": 4000000,
-      "companyName": "Knomo",
+      "projectName": "Knomo",
       "discount": 15,
       "minInvestment": 100,
       "contract": "Crowd SAFE",
@@ -395,7 +395,7 @@ The endpoint will return a HTTP response with a status code and a body as below
   {
       "id": 1,
       "userId": 1,
-      "companyName": "Uber JetSki",
+      "projectName": "Uber JetSki",
       "valuationCap": 7000000,
       "discount": 20,
       "minInvestment": 100,
@@ -413,7 +413,7 @@ The endpoint will return a HTTP response with a status code and a body as below
   {
       "id": 2,
       "userId": 1,
-      "companyName": "Uber Airplane",
+      "projectName": "Uber Airplane",
       "valuationCap": 5500000,
       "discount": 10,
       "minInvestment": 250,
