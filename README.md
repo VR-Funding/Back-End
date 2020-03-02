@@ -66,9 +66,9 @@ Coming soon!
 
 | Name       |  Type   | Required |    Description     |
 | :--------- | :-----: | :------: | :----------------: |
-| `username` | String  |   Yes    |   Must be unique   |
+| `email`    | String  |   Yes    |   Must be unique   |
 | `password` | String  |   Yes    |                    |
-| `email`    | String  |   Yes    |                    |
+| `fullName` | String  |   Yes    | Full name of user  |
 | `investor` | Boolean |   Yes    | Defaults to 'true' |
 
 #### _example:_
@@ -182,6 +182,8 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 #### HTTP method [GET]
 
+### **Sets `token` to null**
+
 ### Headers
 
 | Name            |  Type  | Required |       Description        |
@@ -198,16 +200,6 @@ If you successfully login, the endpoint will return an HTTP response with a stat
 ```
 {
     "message": "Successfully logged out"
-}
-```
-
-500 (Bad Request)
-
-If there is a server or database error, the endpoint will return an HTTP response with a status code 500 and a body as below.
-
-```
-{
-    "error": "Server could not log user out"
 }
 ```
 
@@ -375,7 +367,7 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ## Get All Startups For A Specific User
 
-#### _Method Url:_ `/api/startup/:userid`
+#### _Method Url:_ `/api/startups/users/:userid`
 
 ##### HTTP method: [GET]
 
@@ -478,14 +470,14 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 | Name            |  Type   | Required |                           Description                           |
 | :-------------- | :-----: | :------: | :-------------------------------------------------------------: |
-| `userId`        | Integer |   Yes    |                   ID of User posting startup                    |
+| `userId`        | Integer |   Yes    |   startups.userId == users.id, ID of the user posting startup   |
 | `projectName`   | String  |   Yes    |                     Name of startup/company                     |
 | `valuationCap`  | Integer |   Yes    |    Max valuation at which investment converts to shares/cash    |
 | `discount`      | Integer |   Yes    |  Percentage-based discount at trigger event. Max of two digits  |
 | `minInvestment` | Integer |   Yes    |                   Minimum investment accepted                   |
 | `contract`      | String  |   Yes    |               Either 'Crowd SAFE' or 'Crowd IPA'                |
 | `goalLow`       | Integer |   Yes    |      Minimum dollar amount for raise to close successfully      |
-| `goalHigh`      | Integer |   Yes    |    Max raise amount. Switch `active` to 'false' when reached    |
+| `goalHigh`      | Integer |   Yes    |    Max raise amount. Switch to `active: false` when reached     |
 | `city`          | String  |   Yes    |                  City where startup is located                  |
 | `state`         | String  |   Yes    |                 State where startup is located                  |
 | `country`       | String  |   Yes    |                Country where startup is located                 |
@@ -499,11 +491,29 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 201 (Created)
 
-The endpoint will return a HTTP response with status code 200 and the ID of the newly added Startup.
+The endpoint will return a HTTP response with status code 200 and a body as below.
 
 ```
 [
-    4
+    {
+        "id": 4,
+        "userId": 2,
+        "projectName": "HelloW0rld",
+        "valuationCap": 2000000,
+        "discount": 12,
+        "minInvestment": 49,
+        "contract": "Crowd IPA",
+        "goalLow": 50000,
+        "goalHigh": 1000000,
+        "city": "San Francisco",
+        "state": "California",
+        "country": "United States",
+        "email": "zmail@email.com",
+        "postDate": "03/01/2020",
+        "startDate": "03/02/2020",
+        "endDate": "06/02/2020",
+        "active": true
+    }
 ]
 ```
 

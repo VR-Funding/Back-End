@@ -8,18 +8,18 @@ module.exports = {
 };
 
 function find() {
-  return db('users').select('id', 'username', 'password');
+  return db('users').select('id', 'email', 'password', 'fullName', 'investor');
 }
 
 function findBy(filter) {
   return db('users')
-    .select('id', 'username', 'password')
+    .select('id', 'email', 'password', 'fullName', 'investor')
     .where(filter);
 }
 
 function findById(id) {
   return db('users')
-    .select('id', 'username')
+    .select('id', 'email', 'password', 'fullName', 'investor')
     .where({ id })
     .first();
 }

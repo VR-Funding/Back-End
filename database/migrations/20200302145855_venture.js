@@ -19,9 +19,7 @@ exports.up = function(knex) {
         .integer('userId')
         .unsigned()
         .notNullable()
-        .references('users.id')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
+        .references('users.id');
       table.string('projectName', 128).notNullable();
       table
         .integer('valuationCap')
