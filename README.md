@@ -1,6 +1,6 @@
 # VR-Funding Backend
 
-#### Backend for AIR BNB build week project
+#### Backend for `VentuRe` | VR-funding Build Week project | Lambda School 2020
 
 # Deployed Backend
 
