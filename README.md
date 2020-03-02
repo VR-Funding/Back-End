@@ -4,8 +4,8 @@
 
 # Deployed Backend
 
-[--->Deployed Site<---](https://www.google.com/search?q=where+is+my+backend&oq=where+is+my+backend&aqs=chrome..69i57.16686j0j1&sourceid=chrome&ie=UTF-8)
-Coming soon!
+[--->Deployed Site<---](https://venture-backend.herokuapp.com/)
+https://venture-backend.herokuapp.com/
 
 # Technologies
 
@@ -546,11 +546,12 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 200 (OK)
 
-The endpoint will return a HTTP response with a status code of 200 and a body as below.
+The endpoint will return a HTTP response with a status code of 200, message and count, as below.
 
 ```
 {
-    message: "Startup succesfully updated"
+    message: "Startup succesfully updated",
+    count: 1
 }
 ```
 

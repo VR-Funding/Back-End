@@ -70,10 +70,8 @@ router.put('/:id', (req, res) => {
   const { id } = req.params;
   const changes = req.body;
   Startups.edit(changes, id)
-    .then(startup => {
-      res
-        .status(200)
-        .json({ message: 'Startup successfully updated', startup });
+    .then(count => {
+      res.status(200).json({ message: 'Startup successfully updated', count });
     })
     .catch(err => {
       console.log(err);
