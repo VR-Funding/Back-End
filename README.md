@@ -75,9 +75,9 @@ Coming soon!
 
 ```
 {
-    "username": "user1",
-    "password": "password123",
     "email": "email@email.com",
+    "password": "password123",
+    "fullName": "First Last",
     "investor": true
 }
 ```
@@ -91,8 +91,8 @@ If you successfully register a user the endpoint will return an HTTP response wi
 ```
   "newUser": {
       "id": "1",
-      "username": "user1",
       "email": "email@email.com",
+      "fullName": "First Last",
       "investor": true
   }
 ```
@@ -136,7 +136,7 @@ If any of the above data is missing, the registration will not go through. It wi
 
 ```
 {
-    "username":"user1",
+    "email":"email@email.com",
     "password": "password123"
 }
 ```
@@ -145,11 +145,11 @@ If any of the above data is missing, the registration will not go through. It wi
 
 200 (OK)
 
-If you successfully login, the endpoint will return an HTTP response with a status code 200, message and token, as shown below.
+If you successfully login, the endpoint will return an HTTP response with a status code 200, a message welcoming the user by name and a JWT token, as shown below.
 
 ```
 {
-    "message": "Welcome user1!",
+    "message": "Welcome First Last!",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkVLbmFwbWFuMTAwIiwiaWQiOjMsImlhdCI6MTU2OTM1ODg2MiwiZXhwIjoxNTY5NDQ1MjYyfQ.sNDjccLyuHWhgkne5Ky0hR1-Pd7QNGr6TyKlJqTDHSk"
 }
 ```
@@ -241,12 +241,13 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
   {
       "id": 1,
       "userId": 1,
-      "valuationCap": "7000000",
-      "discount": "20",
-      "minInvestment": "100",
+      "companyName": "Uber JetSki",
+      "valuationCap": 7000000,
+      "discount": 20,
+      "minInvestment": 100,
       "contract": "Crowd SAFE",
-      "goalLow": "25000",
-      "goalHigh": "1500000",
+      "goalLow": 25000,
+      "goalHigh": 1500000,
       "city": "Manhattan",
       "state": "New York",
       "country": "United States",
@@ -258,12 +259,13 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
   {
       "id": 2,
       "userId": 1,
-      "valuationCap": "5500000",
-      "discount": "10",
-      "minInvestment": "250",
+      "companyName": "Uber Airplane",
+      "valuationCap": 5500000,
+      "discount": 10,
+      "minInvestment": 250,
       "contract": "Crowd SAFE",
-      "goalLow": "100000",
-      "goalHigh": "1250000",
+      "goalLow": 100000,
+      "goalHigh": 1250000,
       "city": "San Francisco",
       "state": "California",
       "country": "United States",
@@ -275,12 +277,13 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
   {
       "id": 3,
       "userId": 2,
-      "valuationCap": "4000000",
-      "discount": "15",
-      "minInvestment": "100",
+      "valuationCap": 4000000,
+      "companyName": "Knomo",
+      "discount": 15,
+      "minInvestment": 100,
       "contract": "Crowd SAFE",
-      "goalLow": "50000",
-      "goalHigh": "1000000",
+      "goalLow": 50000,
+      "goalHigh": 1000000,
       "city": "Seattle",
       "state": "Washington",
       "country": "United States",
@@ -328,12 +331,13 @@ The endpoint will return a HTTP response with a status code 200 and a body as be
   {
       "id": 3,
       "userId": 2,
-      "valuationCap": "4000000",
-      "discount": "15",
-      "minInvestment": "100",
+      "valuationCap": 4000000,
+      "companyName": "Knomo",
+      "discount": 15,
+      "minInvestment": 100,
       "contract": "Crowd SAFE",
-      "goalLow": "50000",
-      "goalHigh": "1000000",
+      "goalLow": 50000,
+      "goalHigh": 1000000,
       "city": "Seattle",
       "state": "Washington",
       "country": "United States",
@@ -391,12 +395,13 @@ The endpoint will return a HTTP response with a status code and a body as below
   {
       "id": 1,
       "userId": 1,
-      "valuationCap": "7000000",
-      "discount": "20",
-      "minInvestment": "100",
+      "companyName": "Uber JetSki",
+      "valuationCap": 7000000,
+      "discount": 20,
+      "minInvestment": 100,
       "contract": "Crowd SAFE",
-      "goalLow": "25000",
-      "goalHigh": "1500000",
+      "goalLow": 25000,
+      "goalHigh": 1500000,
       "city": "Manhattan",
       "state": "New York",
       "country": "United States",
@@ -408,12 +413,13 @@ The endpoint will return a HTTP response with a status code and a body as below
   {
       "id": 2,
       "userId": 1,
-      "valuationCap": "5500000",
-      "discount": "10",
-      "minInvestment": "250",
+      "companyName": "Uber Airplane",
+      "valuationCap": 5500000,
+      "discount": 10,
+      "minInvestment": 250,
       "contract": "Crowd SAFE",
-      "goalLow": "100000",
-      "goalHigh": "1250000",
+      "goalLow": 100000,
+      "goalHigh": 1250000,
       "city": "San Francisco",
       "state": "California",
       "country": "United States",
@@ -468,7 +474,7 @@ The endpoint will return a HTTP response with status code 200 and the ID of the 
 
 ```
 [
-    5
+    4
 ]
 ```
 
