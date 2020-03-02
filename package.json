@@ -1,7 +1,7 @@
 {
-  "name": "vr-back-end",
+  "name": "venture-backend",
   "version": "1.0.0",
-  "description": "Backend for the VR-Funding Build Week project, February 2020",
+  "description": "Backend for the VentuRe project, Lambda School Build Week 2/2020",
   "main": "index.js",
   "scripts": {
     "test": "mocha './api/server.spec.js'",
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/VR-Funding/Back-End.git"
   },
-  "author": "KJ Magill - Lambda School WEB26 - Unit 4",
+  "author": "KJ Magill - WEB26 Unit 4",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/VR-Funding/Back-End/issues"
