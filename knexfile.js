@@ -17,17 +17,6 @@ module.exports = {
         conn.run('PRAGMA foreign_keys = ON', done);
       }
     }
-    // client: 'pg',
-    // connection: {
-    //   filename: 'postgresql://localhost/venture'
-    // },
-    // migrations: {
-    //   directory: './database/migrations',
-    //   tableName: 'dbmigrations'
-    // },
-    // seeds: {
-    //   directory: './database/seeds'
-    // }
   },
   testing: {
     client: 'pg',
@@ -36,10 +25,7 @@ module.exports = {
     },
     pool: {
       min: 2,
-      max: 10,
-      afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
-      }
+      max: 10
     },
     migrations: {
       directory: './database/migrations',
@@ -52,12 +38,6 @@ module.exports = {
   production: {
     client: 'pg',
     connection: process.env.DATABASE_URL,
-    // connection: {
-    //   host: 'db.ourcompany.com',
-    //   user: 'me',
-    //   password: 'mini me',
-    //   database: 'school'
-    // }
     pool: {
       min: 2,
       max: 10
