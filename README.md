@@ -50,7 +50,7 @@ https://venture-backend.herokuapp.com/
 
 ### /auth/
 
-## Register
+# Register
 
 ---
 
@@ -528,7 +528,7 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ##### HTTP method: [POST]
 
-### **All fields required for POST except `discount`**
+### **POST a new startup to the database**
 
 ### Headers
 
