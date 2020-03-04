@@ -55,7 +55,13 @@ router.get('/users/:userId', (req, res) => {
 router.post('/', (req, res) => {
   Startups.add(req.body)
     .then(startup => {
-      res.status(201).json(startup);
+      if (startup) {
+        res.status(201).json(startup);
+      } else {
+        res.status(400).json({
+          error: 'Missing a required field'
+        });
+      }
     })
     .catch(err => {
       console.log(err);

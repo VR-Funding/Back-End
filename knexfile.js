@@ -19,13 +19,9 @@ module.exports = {
     }
   },
   testing: {
-    client: 'pg',
+    client: 'sqlite3',
     connection: {
-      filename: 'postgresql://localhost/testing'
-    },
-    pool: {
-      min: 2,
-      max: 10
+      filename: './database/venture.db3'
     },
     migrations: {
       directory: './database/migrations',
@@ -33,6 +29,11 @@ module.exports = {
     },
     seeds: {
       directory: './database/seeds'
+    },
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run('PRAGMA foreign_keys = ON', done);
+      }
     }
   },
   production: {
@@ -45,9 +46,9 @@ module.exports = {
     migrations: {
       directory: './database/migrations',
       tableName: 'dbmigrations'
-    },
-    seeds: {
-      directory: './database/seeds'
     }
+    // seeds: {
+    //   directory: './database/seeds'
+    // }
   }
 };
