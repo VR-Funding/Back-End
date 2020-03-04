@@ -9,7 +9,7 @@ const startupsRouter = require('../startups/startups-router.js');
 const server = express();
 
 const corsConfig = {
-  origin: 'https://front-end.venturer.now.sh/',
+  origin: 'https://front-end.venturer.now.sh/' || 'http://localhost:3000/',
   credentials: true
 };
 
