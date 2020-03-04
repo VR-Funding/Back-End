@@ -8,18 +8,25 @@ module.exports = {
 };
 
 function find() {
-  return db('users').select('id', 'email', 'password', 'fullName', 'investor');
+  return db('users').select(
+    'id',
+    'email',
+    'password',
+    'fullName',
+    'investor',
+    'image'
+  );
 }
 
 function findBy(filter) {
   return db('users')
-    .select('id', 'email', 'password', 'fullName', 'investor')
+    .select('id', 'email', 'password', 'fullName', 'investor', 'image')
     .where(filter);
 }
 
 function findById(id) {
   return db('users')
-    .select('id', 'email', 'password', 'fullName', 'investor')
+    .select('id', 'email', 'password', 'fullName', 'investor', 'image')
     .where({ id })
     .first();
 }

@@ -3,15 +3,16 @@ exports.up = function(knex) {
     .createTable('users', users => {
       users.increments();
       users
-        .string('email', 255)
+        .string('email', 100)
         .notNullable()
         .unique();
-      users.string('password', 255).notNullable();
-      users.string('fullName', 255).notNullable();
+      users.string('password', 100).notNullable();
+      users.string('fullName', 100).notNullable();
       users
         .boolean('investor')
         .notNullable()
         .defaultTo(true);
+      users.string('image', 5000);
     })
     .createTable('startups', table => {
       table.increments();
@@ -19,8 +20,10 @@ exports.up = function(knex) {
         .integer('userId')
         .unsigned()
         .notNullable()
-        .references('users.id');
-      table.string('projectName', 128).notNullable();
+        .references('users.id')
+        .onDelete('CASCADE');
+      table.string('projectName', 80).notNullable();
+      table.string('headline', 80).notNullable();
       table
         .integer('valuationCap')
         .unsigned()
@@ -56,6 +59,16 @@ exports.up = function(knex) {
         .boolean('active')
         .notNullable()
         .defaultTo(false);
+      table.string('image', 5000);
+      table.string('summary', 1000);
+      table.string('problem', 2000);
+      table.string('solution', 2000);
+      table.string('product', 2000);
+      table.string('traction', 2000);
+      table.string('businessModel', 2000);
+      table.string('market', 2000);
+      table.string('vision', 2000);
+      table.string('founders', 2000);
     });
 };
 

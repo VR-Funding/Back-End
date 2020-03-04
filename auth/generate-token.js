@@ -6,7 +6,8 @@ module.exports = function generateToken(user) {
     subject: user.id,
     email: user.email,
     fullName: user.fullName,
-    investor: user.investor
+    investor: user.investor,
+    image: user.image
   };
   const options = {
     expiresIn: '1d'

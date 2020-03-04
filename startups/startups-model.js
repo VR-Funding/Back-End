@@ -14,6 +14,7 @@ function find() {
     'id',
     'userId',
     'projectName',
+    'headline',
     'valuationCap',
     'discount',
     'minInvestment',
@@ -27,7 +28,17 @@ function find() {
     'postDate',
     'startDate',
     'endDate',
-    'active'
+    'active',
+    'image',
+    'summary',
+    'product',
+    'solution',
+    'product',
+    'traction',
+    'businessModel',
+    'market',
+    'vision',
+    'founders'
   );
 }
 
@@ -37,6 +48,7 @@ function findById(id) {
       'id',
       'userId',
       'projectName',
+      'headline',
       'valuationCap',
       'discount',
       'minInvestment',
@@ -50,7 +62,17 @@ function findById(id) {
       'postDate',
       'startDate',
       'endDate',
-      'active'
+      'active',
+      'image',
+      'summary',
+      'product',
+      'solution',
+      'product',
+      'traction',
+      'businessModel',
+      'market',
+      'vision',
+      'founders'
     )
     .where({ id });
 }
@@ -61,6 +83,7 @@ function findByUserId(userId) {
       'id',
       'userId',
       'projectName',
+      'headline',
       'valuationCap',
       'discount',
       'minInvestment',
@@ -74,7 +97,17 @@ function findByUserId(userId) {
       'postDate',
       'startDate',
       'endDate',
-      'active'
+      'active',
+      'image',
+      'summary',
+      'product',
+      'solution',
+      'product',
+      'traction',
+      'businessModel',
+      'market',
+      'vision',
+      'founders'
     )
     .where({ userId: userId });
 }

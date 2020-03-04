@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   Startups.findById(req.params.id)
     .then(startup => {
-      if (startup) {
+      if (startup[0]) {
         res.status(200).json(startup);
       } else {
         res.status(404).json({
@@ -37,12 +37,10 @@ router.get('/:id', (req, res) => {
 router.get('/users/:userId', (req, res) => {
   Startups.findByUserId(req.params.userId)
     .then(startup => {
-      if (startup) {
+      if (startup[0]) {
         res.status(200).json(startup);
       } else {
-        res.status(404).json({
-          error: 'User with that ID does not exist'
-        });
+        res.status(404).json({ error: 'User with that ID does not exist' });
       }
     })
     .catch(err => {
@@ -55,18 +53,13 @@ router.get('/users/:userId', (req, res) => {
 router.post('/', (req, res) => {
   Startups.add(req.body)
     .then(startup => {
-      if (startup) {
-        res.status(201).json(startup);
-      } else {
-        res.status(400).json({
-          error: 'Missing a required field'
-        });
-      }
+      res.status(201).json(startup);
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({
-        error: 'Server could not post startup'
+        error:
+          'Server could not post startup. Possibly missing required field(s).'
       });
     });
 });
@@ -77,7 +70,13 @@ router.put('/:id', (req, res) => {
   const changes = req.body;
   Startups.edit(changes, id)
     .then(count => {
-      res.status(200).json({ message: 'Startup successfully updated', count });
+      if (count === 1) {
+        res
+          .status(200)
+          .json({ message: 'Startup successfully updated', count });
+      } else {
+        res.status(404).json({ error: 'Startup with that ID does not exist' });
+      }
     })
     .catch(err => {
       console.log(err);
