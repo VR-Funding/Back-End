@@ -1,10 +1,11 @@
 const server = require('../api/server.js');
 const request = require('supertest');
 const expect = require('chai').expect;
-const should = require('chai').should();
 
+// SET 'TOKEN' VARIABLE: gives all tests access to the JSON web token provided upon successful login
 let token;
 
+// ENDPOINT: POST to login user before each test & provide a value for 'token' variable (/api/auth/login)
 before(done => {
   request(server)
     .post('/api/auth/login')
@@ -22,19 +23,21 @@ before(done => {
     });
 });
 
-// Endpoint: POST to Register a new user (/api/auth/register)
+// ENDPOINT: POST to Register a new user (/api/auth/register)
 describe('POST /api/auth/register', function() {
   // with username field provided
   it('should respond with json 201 and an object with valid body', function(done) {
     request(server)
       .post('/api/auth/register')
       .send({
-        email: 'test16@email.com',
+        //                              Increase the integer in SEND.email by one for new test
+        email: 'test8@email.com',
         password: 'password',
         fullName: 'First',
-        investor: false
+        investor: false,
+        image:
+          'https://www.ajactraining.org/wp-content/uploads/2019/09/image-placeholder.jpg'
       })
-      // update send ^ on new test
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(201)
@@ -50,7 +53,7 @@ describe('POST /api/auth/register', function() {
   it('should respond with json 500 and an object with valid error message', function(done) {
     request(server)
       .post('/api/auth/register')
-      .send({ password: 'noname' })
+      .send({ password: 'NoNameProvided' })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(500)
@@ -64,13 +67,13 @@ describe('POST /api/auth/register', function() {
   });
 });
 
-// Endpoint: POST to Login an existing user (/api/auth/login)
+// ENDPOINT: POST to Login an existing user (/api/auth/login)
 describe('POST /api/auth/login', function() {
-  // attempt to login with non-existent user
+  // provided with a non-existing user
   it('should respond with json 401 and an object with valid error message', function(done) {
     request(server)
       .post('/api/auth/login')
-      .send({ email: 'carlosis', password: 'password' })
+      .send({ email: 'fake@notreal.com', password: 'password' })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(401)
@@ -82,11 +85,9 @@ describe('POST /api/auth/login', function() {
         done();
       });
   });
-  // .expect('Content-Type', 'text/html; charset=utf-8')
-  // .expect(404)
 });
 
-// Endpoint: GET a list of all Startups (/api/startups)
+// ENDPOINT: GET a list of all Startups (/api/startups)
 describe('GET /api/startups', function() {
   it('should return json 200 and an array of objects', done => {
     request(server)
@@ -104,7 +105,7 @@ describe('GET /api/startups', function() {
   });
 });
 
-// Endpoint: GET a specific startup by ID (/api/startups/:id)
+// ENDPOINT: GET a specific startup by ID (/api/startups/:id)
 describe('GET /api/startups/:id', function() {
   // provided with an existing startup ID
   it('should respond with json 200 and an array containing one project', done => {
@@ -121,24 +122,60 @@ describe('GET /api/startups/:id', function() {
         done();
       });
   });
-  // provided with a non-existing user
-  it('should respond with json 200 and an empty array', done => {
+  // provided with a non-existing startup ID
+  it('should respond with json 404 and an object with valid error message', done => {
     request(server)
       .get('/api/startups/99999')
+      .set('Authorization', token)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(404)
+      .end(function(err, res) {
+        if (err) return done(err);
+        expect(res.body).to.be.empty;
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.equal('Startup with that ID does not exist');
+        done();
+      });
+  });
+});
+
+// ENDPOINT: GET all startups for a specific user by userId (/api/startups/users/:userId)
+describe('GET /api/startups/users/:userId', function() {
+  // provided with an existing userId
+  it('should respond with json 200 and an array containing all startups for specific user', done => {
+    request(server)
+      .get('/api/startups/users/1')
       .set('Authorization', token)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err);
-        expect(res.body).to.be.empty;
+        expect(res.body).not.to.be.empty;
         expect(res.body).to.be.an('array');
+        done();
+      });
+  });
+  // provided with a non-existing userId
+  it('should respond with json 404 and an object with valid error message', done => {
+    request(server)
+      .get('/api/startups/users/99999')
+      .set('Authorization', token)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(404)
+      .end(function(err, res) {
+        if (err) return done(err);
+        expect(res.body).not.to.be.empty;
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.equal('User with that ID does not exist');
         done();
       });
   });
 });
 
-// Endpoint: POST a new startup (/api/startups)
+// ENDPOINT: POST a new startup (/api/startups)
 describe('POST /api/startups', function() {
   // with all required fields provided
   it('should respond with json 201 and an array with the new startup', done => {
@@ -148,6 +185,7 @@ describe('POST /api/startups', function() {
       .send({
         userId: 3,
         projectName: 'Altitude',
+        headline: 'Bringing you higher, daily',
         valuationCap: 1800000,
         discount: 12,
         minInvestment: 75,
@@ -180,7 +218,7 @@ describe('POST /api/startups', function() {
       .set('Authorization', token)
       .send({
         userId: 4,
-        projectName: 'Shouldnt Work',
+        projectName: 'Should Not Work',
         valuationCap: 2000000
       })
       .set('Accept', 'application/json')
@@ -190,20 +228,20 @@ describe('POST /api/startups', function() {
         if (err) return done(err);
         expect(res.body).not.to.be.empty;
         expect(res.body).to.be.an('object');
-        expect(res.body.error).to.equal('Server could not post startup');
+        expect(res.body.error).to.equal(
+          'Server could not post startup. Possibly missing required field(s).'
+        );
         done();
       });
   });
-  // possibly 500
 });
 
-// Endpoint: PUT to update an existing startup by ID (/api/startups/:id)
+// ENDPOINT: PUT to update an existing startup by ID (/api/startups/:id)
 describe('PUT /api/startups/:id', function() {
-  // update startup with an existing property
+  // provided with an existing startup ID and updating an existing property
   it('should respond with json 200 and and an object with valid body', done => {
     request(server)
-      .put('/api/startups/7')
-      // update PUT or SEND on new test
+      .put('/api/startups/5') //                   Increase :id by one for new test
       .set('Authorization', token)
       .send({ discount: 20 })
       .set('Accept', 'application/json')
@@ -218,7 +256,7 @@ describe('PUT /api/startups/:id', function() {
         done();
       });
   });
-  // update startup with a non-existing property
+  // provided with an existing startup ID and updating a non-existing property
   it('should respond with json 500 and an object with valid error message', done => {
     request(server)
       .put('/api/startups/6')
@@ -235,15 +273,31 @@ describe('PUT /api/startups/:id', function() {
         done();
       });
   });
+  // provided with a non-existing startup ID
+  it('should respond with json 404 and an object with valid error message', done => {
+    request(server)
+      .put('/api/startups/99999')
+      .set('Authorization', token)
+      .send({ discount: 20 })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(404)
+      .end(function(err, res) {
+        if (err) return done(err);
+        expect(res.body).not.to.be.empty;
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.equal('Startup with that ID does not exist');
+        done();
+      });
+  });
 });
 
-// Endpoint: DELETE an existing startup by ID (/api/startups/:id)
+// ENDPOINT: DELETE an existing startup by ID (/api/startups/:id)
 describe('DELETE /api/startups:id', function() {
   // provided with an existing startup ID
   it('should respond with json 200 and an object with valid success message', done => {
     request(server)
-      .delete('/api/startups/9')
-      // update PUT ^ on new test
+      .delete('/api/startups/5') //                     Increase :id by one for new test
       .set('Authorization', token)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
