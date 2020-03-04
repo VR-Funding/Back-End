@@ -532,12 +532,10 @@ If there is a server or database error, the endpoint will return an HTTP respons
 
 ### Headers
 
-| Name            |  Type   | Required |                 Description                  |
-| :-------------- | :-----: | :------: | :------------------------------------------: |
-| `Content-Type`  | String  |   Yes    |           Must be application/json           |
-| `authorization` | String  |   Yes    |                JSON Web Token                |
-| `discount`      | Integer |   Yes    |          Max of two digits. %-based          |
-| `active`        | Boolean |   Yes    | Defaults to false, turns true on `startDate` |
+| Name            |  Type  | Required |       Description        |
+| :-------------- | :----: | :------: | :----------------------: |
+| `Content-Type`  | String |   Yes    | Must be application/json |
+| `authorization` | String |   Yes    |      JSON Web Token      |
 
 ### Body
 
