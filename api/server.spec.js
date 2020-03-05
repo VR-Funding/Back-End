@@ -30,7 +30,7 @@ describe('POST /api/auth/register', function() {
     request(server)
       .post('/api/auth/register')
       .send({
-        //                              Increase the integer in SEND.email by one for new test
+        //                               Change email before running tests again
         email: 'test8@email.com',
         password: 'password',
         fullName: 'First',
@@ -183,23 +183,32 @@ describe('POST /api/startups', function() {
       .post('/api/startups')
       .set('Authorization', token)
       .send({
-        userId: 3,
+        userId: '3',
         projectName: 'Altitude',
         headline: 'Bringing you higher, daily',
-        valuationCap: 1800000,
-        discount: 12,
-        minInvestment: 75,
+        valuationCap: '1800000',
+        discount: '12',
+        minInvestment: '75',
         contract: 'Crowd IPA',
-        goalLow: 35000,
-        goalHigh: 350000,
+        goalLow: '35000',
+        goalHigh: '350000',
         city: 'Denver',
         state: 'Colorado',
         country: 'United States',
         email: 'altitude@email.com',
-        postDate: '03/03/2020',
         startDate: '03/12/2020',
         endDate: '06/11/2020',
-        active: false
+        image:
+          'https://www.ajactraining.org/wp-content/uploads/2019/09/image-placeholder.jpg',
+        summary: null,
+        product: null,
+        solution: null,
+        product: null,
+        traction: null,
+        businessModel: null,
+        market: null,
+        vision: null,
+        founders: null
       })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -217,9 +226,9 @@ describe('POST /api/startups', function() {
       .post('/api/startups')
       .set('Authorization', token)
       .send({
-        userId: 4,
+        userId: '4',
         projectName: 'Should Not Work',
-        valuationCap: 2000000
+        valuationCap: '2000000'
       })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -241,9 +250,9 @@ describe('PUT /api/startups/:id', function() {
   // provided with an existing startup ID and updating an existing property
   it('should respond with json 200 and and an object with valid body', done => {
     request(server)
-      .put('/api/startups/5') //                   Increase :id by one for new test
+      .put('/api/startups/5')
       .set('Authorization', token)
-      .send({ discount: 20 })
+      .send({ discount: '20' }) //        Change discount before running tests again
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
@@ -278,7 +287,7 @@ describe('PUT /api/startups/:id', function() {
     request(server)
       .put('/api/startups/99999')
       .set('Authorization', token)
-      .send({ discount: 20 })
+      .send({ discount: '20' })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(404)
@@ -297,7 +306,7 @@ describe('DELETE /api/startups:id', function() {
   // provided with an existing startup ID
   it('should respond with json 200 and an object with valid success message', done => {
     request(server)
-      .delete('/api/startups/5') //                     Increase :id by one for new test
+      .delete('/api/startups/5') //           Change :id(+1) before running tests again
       .set('Authorization', token)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
