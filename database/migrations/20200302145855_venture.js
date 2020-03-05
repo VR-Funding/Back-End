@@ -16,11 +16,7 @@ exports.up = function(knex) {
     })
     .createTable('startups', table => {
       table.increments();
-      table
-        .string('userId')
-        .notNullable()
-        .references('users.id')
-        .onDelete('CASCADE');
+      table.string('userId').notNullable();
       table.string('projectName', 80).notNullable();
       table.string('headline', 80).notNullable();
       table.string('valuationCap').notNullable();
