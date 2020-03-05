@@ -17,33 +17,17 @@ exports.up = function(knex) {
     .createTable('startups', table => {
       table.increments();
       table
-        .integer('userId')
-        .unsigned()
+        .string('userId')
         .notNullable()
         .references('users.id')
         .onDelete('CASCADE');
       table.string('projectName', 80).notNullable();
       table.string('headline', 80).notNullable();
-      table
-        .integer('valuationCap')
-        .unsigned()
-        .notNullable();
-      table
-        .integer('discount')
-        .unsigned()
-        .notNullable();
-      table
-        .integer('minInvestment')
-        .unsigned()
-        .notNullable();
-      table
-        .integer('goalLow')
-        .unsigned()
-        .notNullable();
-      table
-        .integer('goalHigh')
-        .unsigned()
-        .notNullable();
+      table.string('valuationCap').notNullable();
+      table.string('discount').notNullable();
+      table.string('minInvestment').notNullable();
+      table.string('goalLow').notNullable();
+      table.string('goalHigh').notNullable();
       table
         .string('contract', 128)
         .notNullable()
@@ -52,13 +36,8 @@ exports.up = function(knex) {
       table.string('state', 128).notNullable();
       table.string('country', 128).notNullable();
       table.string('email', 128).notNullable();
-      table.string('postDate', 10).notNullable();
       table.string('startDate', 10).notNullable();
       table.string('endDate', 10).notNullable();
-      table
-        .boolean('active')
-        .notNullable()
-        .defaultTo(false);
       table.string('image', 5000);
       table.string('summary', 1000);
       table.string('problem', 2000);
