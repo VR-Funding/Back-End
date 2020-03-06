@@ -17,6 +17,16 @@ const corsConfig = {
 };
 
 server.use(helmet());
+const cors = require('cors');
+
+const corsConfig = {
+  origin:
+    'https://front-end-pink-iota.venturer.now.sh/' ||
+    'https://front-end.venturer.now.sh/' ||
+    'http://localhost:3000/',
+  credentials: true
+};
+
 server.use(cors(corsConfig));
 server.use(express.json());
 
@@ -29,8 +39,11 @@ server.use(function(req, res, next) {
   next();
 });
 
-server.use('/api/auth', [logger, authRouter]);
-server.use('/api/startups', authenticate, [logger, startupsRouter]);
+server.use('/api/auth', cors(corsConfig), [logger, authRouter]);
+server.use('/api/startups', cors(corsConfig), authenticate, [
+  logger,
+  startupsRouter
+]);
 
 server.get('/', (req, res) => {
   res.json({ server: 'online' });
