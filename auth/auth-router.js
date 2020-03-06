@@ -30,6 +30,7 @@ router.post('/login', (req, res) => {
           message: `Welcome ${user.fullName}!`,
           id: user.id,
           image: user.image,
+          investor: user.investor,
           token
         });
       } else {
