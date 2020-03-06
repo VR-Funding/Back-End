@@ -17,11 +17,16 @@ server.use(helmet());
 server.use(cors(corsConfig));
 server.use(express.json());
 
-server.use('/api/auth', authRouter);
-server.use('/api/startups', authenticate, startupsRouter);
+server.use('/api/auth', [logger, authRouter]);
+server.use('/api/startups', authenticate, [logger, startupsRouter]);
 
 server.get('/', (req, res) => {
   res.json({ server: 'online' });
 });
+
+function logger(req, res, next) {
+  console.log(req.method, req.url, Date.now());
+  next();
+}
 
 module.exports = server;
