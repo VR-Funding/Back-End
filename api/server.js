@@ -9,7 +9,10 @@ const startupsRouter = require('../startups/startups-router.js');
 const server = express();
 
 const corsConfig = {
-  origin: 'https://front-end.venturer.now.sh/' || 'http://localhost:3000/',
+  origin:
+    'https://front-end-pink-iota.venturer.now.sh/' ||
+    'https://front-end.venturer.now.sh/' ||
+    'http://localhost:3000/',
   credentials: true
 };
 
