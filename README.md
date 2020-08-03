@@ -1,6 +1,7 @@
 # VentuRe Backend
 
 VentuRe is a crowdfunding platform for new startups in the Virtual Reality space.
+
 This backend was built by [KJ Magill](https://github.com/kjmagill) in NodeJS.
 
 # Deployed Backend
