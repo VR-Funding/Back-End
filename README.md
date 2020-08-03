@@ -1,6 +1,6 @@
 # VentuRe Backend
 
-#### VR-funding Build Week project | Lambda School 2020
+VentuRe is a crowdfunding platform for new startups in the Virtual Reality space. This backend was built by [KJ Magill](https://github.com/kjmagill) in NodeJS.
 
 # Deployed Backend
 
@@ -150,13 +150,14 @@ If any of the above data is missing, the registration will not go through. It wi
 
 200 (OK)
 
-If you successfully login, the endpoint will return an HTTP response with a status code 200 and an object containing a welcome message, the user's ID, the user's image URL, and a JWT token.
+If you successfully login, the endpoint will return an HTTP response with a status code 200 and an object containing a welcome message, the user's ID + image URL + investor-status, and a JWT token.
 
 ```
 {
     "message": "Welcome First Last!",
     "id": 1,
     "image": "https://www.ajactraining.org/wp-content/uploads/2019/09/image-placeholder.jpg",
+    "investor": true,
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkVLbmFwbWFuMTAwIiwiaWQiOjMsImlhdCI6MTU2OTM1ODg2MiwiZXhwIjoxNTY5NDQ1MjYyfQ.sNDjccLyuHWhgkne5Ky0hR1-Pd7QNGr6TyKlJqTDHSk"
 }
 ```
